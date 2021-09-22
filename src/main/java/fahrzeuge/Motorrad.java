@@ -1,4 +1,4 @@
-package sample.java.fahrzeuge;
+package fahrzeuge;
 
 public class Motorrad extends Fahrzeug {
     private int tankvolumen;

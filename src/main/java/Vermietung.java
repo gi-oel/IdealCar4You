@@ -1,5 +1,3 @@
-package sample.java;
-
 import sample.java.fahrzeuge.Fahrzeug;
 
 public class Vermietung {

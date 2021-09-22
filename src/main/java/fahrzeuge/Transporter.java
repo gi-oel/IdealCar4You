@@ -1,4 +1,4 @@
-package sample.java.fahrzeuge;
+package fahrzeuge;
 
 public class Transporter extends Fahrzeug {
     private int ladegewicht;

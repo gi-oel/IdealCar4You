@@ -1,5 +1,3 @@
-package sample.java;
-
 public class Kunde {
     private String vorname;
     private String nachname;

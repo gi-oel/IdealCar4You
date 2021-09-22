@@ -1,4 +1,4 @@
-package sample.java.fahrzeuge;
+package fahrzeuge;
 
 public class Auto extends Fahrzeug {
     private int kofferraumPlatz;

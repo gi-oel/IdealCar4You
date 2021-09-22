@@ -1,4 +1,4 @@
-package sample.java.fahrzeuge;
+package fahrzeuge;
 
 import sample.java.Kunde;
 import sample.java.Vermietung;
