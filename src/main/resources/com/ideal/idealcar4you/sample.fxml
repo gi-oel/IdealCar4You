@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="vBoxStart" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.java.ControllerPrimary">
+    <children>
+        <Label id="lblFahrzeugvermietung3000" alignment="TOP_CENTER" text="Fahrzeugvermietung3000">
+            <font>
+                <Font size="29.0"/>
+            </font>
+        </Label>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
+            <children>
+                <Button id="btnKundenberater" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                        minWidth="-Infinity" mnemonicParsing="false" onAction="#clickedKundenberater" prefWidth="135.0"
+                        text="Kundenberater"/>
+                <Button id="btnFahrzeugparkmanager" fx:id="btnFahrzeugparkmanager" mnemonicParsing="false"
+                        onAction="#clickedFahrzeugparkmanager" text="Fahrzeugparkmanager"/>
+            </children>
+        </HBox>
+        <Button id="btnBeenden" mnemonicParsing="false" onAction="#closeButton" text="Beenden"/>
+    </children>
+</VBox>
