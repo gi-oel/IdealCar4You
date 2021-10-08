@@ -1,7 +1,7 @@
 package fahrzeuge;
 
-import sample.java.Kunde;
-import sample.java.Vermietung;
+import logic.Kunde;
+import logic.Vermietung;
 
 import java.util.List;
 

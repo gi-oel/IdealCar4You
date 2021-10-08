@@ -1,3 +1,5 @@
+package logic;
+
 public class Kunde {
     private String vorname;
     private String nachname;

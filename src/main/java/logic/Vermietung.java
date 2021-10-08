@@ -1,4 +1,6 @@
-import sample.java.fahrzeuge.Fahrzeug;
+package logic;
+
+import fahrzeuge.Fahrzeug;
 
 public class Vermietung {
     private Fahrzeug fahrzeug;

@@ -29,7 +29,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Kunde erfassen" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS">
+      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="fahrzeuge.Kunde erfassen" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS">
          <font>
             <Font size="29.0" />
          </font>

@@ -25,7 +25,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Vermietung erfassen" textAlignment="CENTER" GridPane.columnSpan="2147483647">
+      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="fahrzeuge.Vermietung erfassen" textAlignment="CENTER" GridPane.columnSpan="2147483647">
          <font>
             <Font size="29.0" />
          </font>
@@ -56,8 +56,8 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Button>
-      <Label text="Kunde:" GridPane.rowIndex="3" />
-      <Button fx:id="btnKundeAuswaehlen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#kundeAuswaehlenVm" text="Kunde auswählen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="fahrzeuge.Kunde:" GridPane.rowIndex="3" />
+      <Button fx:id="btnKundeAuswaehlen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#kundeAuswaehlenVm" text="fahrzeuge.Kunde auswählen" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" />

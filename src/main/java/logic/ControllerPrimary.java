@@ -1,9 +1,11 @@
+package logic;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import sample.java.fahrzeuge.*;
+import fahrzeuge.*;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -234,7 +236,7 @@ public class ControllerPrimary {
             jsonController = ControllerMethods.getData();
             kunden.addAll(jsonController.getKunden());
 
-            //Der Kunde wird bearbeitet
+            //Der logic.Kunde wird bearbeitet
             Kunde derKunde = kunden.get(ControllerVariables.getSelectedIndex());
 
             //Die neuen Daten werden gespeichert
@@ -248,7 +250,7 @@ public class ControllerPrimary {
             derKunde.setWohnort(txtWohnort.getText());
             derKunde.setTelefon(txtTelefon.getText());
 
-            //Der Kunde in der Liste wird aktualisiert
+            //Der logic.Kunde in der Liste wird aktualisiert
             kunden.set(ControllerVariables.getSelectedIndex(), derKunde);
 
             //Die Datei wird aktualisiert

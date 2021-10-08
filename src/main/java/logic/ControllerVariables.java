@@ -1,7 +1,9 @@
+package logic;
+
+import fahrzeuge.Fahrzeug;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.java.fahrzeuge.Fahrzeug;
 
 public class ControllerVariables {
     private static Stage stageLogin;

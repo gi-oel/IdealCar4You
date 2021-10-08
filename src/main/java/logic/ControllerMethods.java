@@ -1,3 +1,5 @@
+package logic;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import sample.java.fahrzeuge.*;
+import fahrzeuge.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -127,7 +129,7 @@ public class ControllerMethods {
         String aufbauValue = (String) aufbau.getValue();
         Boolean navigation;
 
-        //Die Zahl wird angepasst, zu dem Fahrzeug, das der Kunde erfasst hat
+        //Die Zahl wird angepasst, zu dem Fahrzeug, das der logic.Kunde erfasst hat
         if (lblType.getText() == "Auto") {
             fahrzeugTyp = 1;
         } else if (lblType.getText() == "Motorrad") {
@@ -337,7 +339,7 @@ public class ControllerMethods {
                 System.out.println("Datei: " + fahrzeugJson.getName() + " wurde erstellt.");
             }
         }
-        //Das Objekt Kunde wird erstellt und der neue Kunde hinzugefügt
+        //Das Objekt logic.Kunde wird erstellt und der neue logic.Kunde hinzugefügt
         Kunde kunde = new Kunde(txtVorname.getText(), txtNachname.getText(), txtStrasse.getText(), txtHausnummer.getText(), plz, txtWohnort.getText(), txtTelefon.getText(), txtEmail.getText(), txtGeburt);
         listeNeueKunden.add(kunde);
 
@@ -365,7 +367,7 @@ public class ControllerMethods {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Fahrzeugvermietung3000 - Fehler");
             alert.setHeaderText("Warnung");
-            alert.setContentText("Es gibt im Moment keine Kunden zum anzeigen. Erfasse zuerst ein Kunde!");
+            alert.setContentText("Es gibt im Moment keine Kunden zum anzeigen. Erfasse zuerst ein logic.Kunde!");
 
             alert.showAndWait();
         }
@@ -383,7 +385,7 @@ public class ControllerMethods {
         //Der ausgewählte index wird gesetzt
         ControllerVariables.setSelectedIndex(listViewKunde.getSelectionModel().getSelectedIndex());
 
-        //Der Kunde wird erstellt
+        //Der logic.Kunde wird erstellt
         Kunde derKunde = null;
         //Der Json controller wird erstellt um die Daten aus zu lesen
         JsonController jsonController;
@@ -391,7 +393,7 @@ public class ControllerMethods {
             //Die Kunden werden in eine Liste geladen
             jsonController = objectMapper.readValue(Paths.get("daten.json").toFile(), JsonController.class);
             kundeListe.addAll(jsonController.getKunden());
-            //Der ausgewählte Kunde wird gesetzt
+            //Der ausgewählte logic.Kunde wird gesetzt
             derKunde = kundeListe.get(listViewKunde.getSelectionModel().getSelectedIndex());
         } catch (IOException | NullPointerException e) {
             //Es wird ein ALert angezeigt
@@ -460,7 +462,7 @@ public class ControllerMethods {
         //Der ausgewählte index wird gesetzt
         ControllerVariables.setSelectedIndex(fahrzeuge.getSelectionModel().getSelectedIndex());
 
-        //Der Kunde wird erstellt
+        //Der logic.Kunde wird erstellt
         Fahrzeug dasFahrzeug = null;
         //Der Json controller wird erstellt um die Daten aus zu lesen
         JsonController jsonController;
@@ -468,7 +470,7 @@ public class ControllerMethods {
             //Die Kunden werden in eine Liste geladen
             jsonController = ControllerMethods.getData();
             fahrzeugListe.addAll(jsonController.getVehicles());
-            //Der ausgewählte Kunde wird gesetzt
+            //Der ausgewählte logic.Kunde wird gesetzt
             dasFahrzeug = fahrzeugListe.get(fahrzeuge.getSelectionModel().getSelectedIndex());
         } catch (IOException | NullPointerException e) {
             //Es wird ein ALert angezeigt
