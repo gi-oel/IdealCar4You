@@ -21,6 +21,7 @@ public class Main extends Application {
         logins.put("hermann", "starkesPasswort");
         logins.put("fritz", "schwachesPasswort");
         logins.put("amanda", "besteBeraterin");
+        logins.put("faeh", "dumm");
 
         //Setting managers
         managers = new ArrayList<>() {
@@ -81,6 +82,7 @@ public class Main extends Application {
                             kundenberater.start(new Stage());
                         }
                         errorString = "Wilkommen " + usernameString;
+                        primaryStage.hide();
                     } catch (Exception e) {
                         e.printStackTrace();
 
