@@ -94,6 +94,9 @@ public class Main extends Application {
             error.setText(errorString);
         });
 
+        //Default button machen
+        loginButton.setDefaultButton(true);
+
         //Add text
         outerLayout.add(login, 0, 0);
         outerLayout.add(username, 0, 1);

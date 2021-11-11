@@ -20,7 +20,9 @@ public class Kundenberater extends Application {
         Menu customers = new Menu("Kunden");
         menuBar.getMenus().addAll(vehicles, customers);
 
-        BorderPane rootLayout = new BorderPane(menuBar);
+        //Root layout
+        BorderPane rootLayout = new BorderPane();
+        rootLayout.setTop(menuBar);
         stage.setScene(new Scene(rootLayout, 500, 300));
         stage.show();
     }

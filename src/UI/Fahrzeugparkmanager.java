@@ -19,7 +19,10 @@ public class Fahrzeugparkmanager extends Application {
         Menu vehicles = new Menu("Fahrzeuge");
         menuBar.getMenus().add(vehicles);
 
-        BorderPane rootLayout = new BorderPane(menuBar);
+        //root
+        BorderPane rootLayout = new BorderPane();
+        rootLayout.setTop(menuBar);
+
         stage.setScene(new Scene(rootLayout, 500, 300));
         stage.show();
     }
