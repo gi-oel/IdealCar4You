@@ -28,6 +28,7 @@ public class Fahrzeugparkmanager extends Application {
         logoutMenu.setOnAction(event->{
             managerStage.hide();
         });
+
         //root
         BorderPane rootLayout = new BorderPane();
         rootLayout.setTop(menuBar);
