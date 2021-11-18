@@ -12,4 +12,5 @@ public abstract class Fahrzeug {
     private LocalDate erstzulassung;
     private String color;
     private int leergewicht;
+    private String[] treibstoffart = {"Benzin", "Diesel", "Elektrisch"};
 }
