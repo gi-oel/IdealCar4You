@@ -1,5 +1,7 @@
 package Domain.Fahrzeug;
 
+import java.time.LocalDate;
+
 public class Auto extends Fahrzeug {
     private int aufbauID;
     private boolean navigation;
@@ -8,8 +10,8 @@ public class Auto extends Fahrzeug {
     public Auto() {
     }
 
-    public Auto(int aufbauID, boolean navigation) {
-        super();
+    public Auto(int aufbauID, boolean navigation, String marke, String model, int hubraum, int treibstoffartID, int aktuellerKMStand, int ps, LocalDate erstzulassung, String color, int leergewicht) {
+        super(marke, model, hubraum, treibstoffartID, aktuellerKMStand, ps, erstzulassung, color, leergewicht);
         this.aufbauID = aufbauID;
         this.navigation = navigation;
     }

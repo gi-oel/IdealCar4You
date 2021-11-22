@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public abstract class Fahrzeug {
     private String marke;
-    private String Model;
+    private String model;
     private int hubraum;
     private int treibstoffartID;
     private int aktuellerKMStand;
@@ -14,9 +14,9 @@ public abstract class Fahrzeug {
     private int leergewicht;
     private final String[] treibstoffart = {"Benzin", "Diesel", "Elektrisch"};
 
-    public Fahrzeug(String marke, String model, int hubraum, int treibstoffartID, int aktuellerKMStand, int ps, LocalDate erstzulassung, String color, int leergewicht) {
+    protected Fahrzeug(String marke, String model, int hubraum, int treibstoffartID, int aktuellerKMStand, int ps, LocalDate erstzulassung, String color, int leergewicht) {
         this.marke = marke;
-        Model = model;
+        this.model = model;
         this.hubraum = hubraum;
         this.treibstoffartID = treibstoffartID;
         this.aktuellerKMStand = aktuellerKMStand;
@@ -26,7 +26,7 @@ public abstract class Fahrzeug {
         this.leergewicht = leergewicht;
     }
 
-    public Fahrzeug() {
+    protected Fahrzeug() {
     }
 
     public String getMarke() {
@@ -38,11 +38,11 @@ public abstract class Fahrzeug {
     }
 
     public String getModel() {
-        return Model;
+        return model;
     }
 
     public void setModel(String model) {
-        Model = model;
+        this.model = model;
     }
 
     public int getHubraum() {

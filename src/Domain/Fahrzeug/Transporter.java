@@ -1,13 +1,15 @@
 package Domain.Fahrzeug;
 
+import java.time.LocalDate;
+
 public class Transporter extends Fahrzeug {
     private int maxZuladung;
 
     public Transporter() {
     }
 
-    public Transporter(int maxZuladung) {
-        super();
+    public Transporter(int maxZuladung, String marke, String model, int hubraum, int treibstoffartID, int aktuellerKMStand, int ps, LocalDate erstzulassung, String color, int leergewicht) {
+        super(marke, model, hubraum, treibstoffartID, aktuellerKMStand, ps, erstzulassung, color, leergewicht);
         this.maxZuladung = maxZuladung;
     }
 
