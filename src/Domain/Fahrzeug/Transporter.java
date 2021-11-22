@@ -5,4 +5,17 @@ public class Transporter extends Fahrzeug {
 
     public Transporter() {
     }
+
+    public Transporter(int maxZuladung) {
+        super();
+        this.maxZuladung = maxZuladung;
+    }
+
+    public int getMaxZuladung() {
+        return maxZuladung;
+    }
+
+    public void setMaxZuladung(int maxZuladung) {
+        this.maxZuladung = maxZuladung;
+    }
 }
