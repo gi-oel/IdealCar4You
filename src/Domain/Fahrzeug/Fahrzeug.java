@@ -1,7 +1,19 @@
 package Domain.Fahrzeug;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.time.LocalDate;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "@class"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Auto.class, name = "Auto"),
+        @JsonSubTypes.Type(value = Transporter.class, name = "Transporter")
+})
 public abstract class Fahrzeug {
     private String marke;
     private String model;
