@@ -1,5 +1,6 @@
 import Domain.Fahrzeug.Auto;
 import Domain.Fahrzeug.Fahrzeug;
+import Domain.Kunde.Kunde;
 import Infrasturcture.PersistencyService;
 import UI.Fahrzeugparkmanager;
 import UI.Kundenberater;
@@ -35,11 +36,11 @@ public class Main extends Application {
         managers.add("hermann");
         managers.add("fritz");
 
+        Kunde kunde = new Kunde("Petrillo", "Gioele", "Kronenwiese 11", 9630, "Wattwil", "079 719 66 30", "077 997 21 09","gioele.petrillo@gmail.com", LocalDate.now());
         Auto auto = new Auto(0, true, "Seat", "Cupra", 50, 1, 0, 300, LocalDate.now(), "blau", 406);
-        List<Fahrzeug> fahrzeuge = new ArrayList<>();
-        fahrzeuge.add(auto);
-
-        PersistencyService persistencyService = new PersistencyService(fahrzeuge, new ArrayList<>());
+        PersistencyService persistencyService = new PersistencyService();
+        persistencyService.addFahrzeug(auto);
+        persistencyService.addKunde(kunde);
         try {
             persistencyService.saveData();
         } catch (IOException e) {

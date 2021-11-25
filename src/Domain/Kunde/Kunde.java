@@ -1,5 +1,7 @@
 package Domain.Kunde;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 public class Kunde {
@@ -11,6 +13,8 @@ public class Kunde {
     private String telefonPriv;
     private String telefonMob;
     private String email;
+    private String geburtsdatumString; //Für json speicherung
+    @JsonIgnore
     private LocalDate geburtsdatum;
 
     public Kunde() {
@@ -99,5 +103,13 @@ public class Kunde {
 
     public void setGeburtsdatum(LocalDate geburtsdatum) {
         this.geburtsdatum = geburtsdatum;
+    }
+
+    public String getGeburtsdatumString() {
+        return geburtsdatumString;
+    }
+
+    public void setGeburtsdatumString(String geburtsdatumString) {
+        this.geburtsdatumString = geburtsdatumString;
     }
 }

@@ -46,8 +46,29 @@ public class PersistencyService {
             fahrzeug.setErstzulassungString(fahrzeug.getErstzulassung().toString());
             this.listService.setFahrzeug(i, fahrzeug);
         }
+        for (int i = 0; i < this.listService.getKunden().size(); i++) {
+            Kunde kunde = this.listService.getKunde(i);
+            kunde.setGeburtsdatumString(kunde.getGeburtsdatum().toString());
+            this.listService.setKunde(i, kunde);
+        }
         om.enable(SerializationFeature.INDENT_OUTPUT);
         om.writeValue(datenFile, listService);
+    }
+
+    public void addFahrzeug(Fahrzeug fahrzeug) {
+        this.listService.addFahrzeug(fahrzeug);
+    }
+
+    public void addKunde(Kunde kunde) {
+        this.listService.addKunde(kunde);
+    }
+
+    public void deleteKunde(Kunde kunde) {
+        this.listService.deleteKunde(kunde);
+    }
+
+    public void deleteFahrzeug(Fahrzeug fahrzeug) {
+        this.listService.deleteFahrzeug(fahrzeug);
     }
 }
 
@@ -81,12 +102,28 @@ class ListService {
         this.fahrzeuge = fahrzeuge;
     }
 
+    public void addFahrzeug(Fahrzeug fahrzeug) {
+        this.fahrzeuge.add(fahrzeug);
+    }
+
+    public void deleteFahrzeug(Fahrzeug fahrzeug) {
+        this.fahrzeuge.remove(fahrzeug);
+    }
+
     public List<Kunde> getKunden() {
         return kunden;
     }
 
     public void setKunden(List<Kunde> kunden) {
         this.kunden = kunden;
+    }
+
+    public void addKunde(Kunde kunde) {
+        this.kunden.add(kunde);
+    }
+
+    public void deleteKunde(Kunde kunde) {
+        this.kunden.remove(kunde);
     }
 
     public Kunde getKunde(int index) {

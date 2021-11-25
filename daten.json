@@ -1,0 +1,27 @@
+{
+  "fahrzeuge" : [ {
+    "@class" : "Domain.Fahrzeug.Auto",
+    "marke" : "Seat",
+    "model" : "Cupra",
+    "hubraum" : 50,
+    "treibstoffartID" : 1,
+    "aktuellerKMStand" : 0,
+    "ps" : 300,
+    "erstzulassungString" : "2021-11-25",
+    "color" : "blau",
+    "leergewicht" : 406,
+    "aufbauID" : 0,
+    "navigation" : true
+  } ],
+  "kunden" : [ {
+    "name" : "Petrillo",
+    "vorname" : "Gioele",
+    "strasseUndNr" : "Kronenwiese 11",
+    "plz" : 9630,
+    "wohnort" : "Wattwil",
+    "telefonPriv" : "079 719 66 30",
+    "telefonMob" : "077 997 21 09",
+    "email" : "gioele.petrillo@gmail.com",
+    "geburtsdatumString" : "2021-11-25"
+  } ]
+}
