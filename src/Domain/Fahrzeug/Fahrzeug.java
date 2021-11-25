@@ -1,10 +1,13 @@
 package Domain.Fahrzeug;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.time.LocalDate;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
         include = JsonTypeInfo.As.PROPERTY,
@@ -21,9 +24,12 @@ public abstract class Fahrzeug {
     private int treibstoffartID;
     private int aktuellerKMStand;
     private int ps;
+    @JsonIgnore
     private LocalDate erstzulassung;
+    private String erstzulassungString; //Um in json zu speichern
     private String color;
     private int leergewicht;
+    @JsonIgnore
     private final String[] treibstoffart = {"Benzin", "Diesel", "Elektrisch"};
 
     protected Fahrzeug(String marke, String model, int hubraum, int treibstoffartID, int aktuellerKMStand, int ps, LocalDate erstzulassung, String color, int leergewicht) {
@@ -115,5 +121,13 @@ public abstract class Fahrzeug {
 
     public String[] getTreibstoffart() {
         return treibstoffart;
+    }
+
+    public String getErstzulassungString() {
+        return erstzulassungString;
+    }
+
+    public void setErstzulassungString(String erstzulassungString) {
+        this.erstzulassungString = erstzulassungString;
     }
 }

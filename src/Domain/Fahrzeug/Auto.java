@@ -1,10 +1,13 @@
 package Domain.Fahrzeug;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
 
 public class Auto extends Fahrzeug {
     private int aufbauID;
     private boolean navigation;
+    @JsonIgnore
     private final String[] aufbau = {"Kleinwagen", "Limousine", "Kombi", "SUV", "Cabriolet"};
 
     public Auto() {

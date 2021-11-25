@@ -1,3 +1,6 @@
+import Domain.Fahrzeug.Auto;
+import Domain.Fahrzeug.Fahrzeug;
+import Infrasturcture.PersistencyService;
 import UI.Fahrzeugparkmanager;
 import UI.Kundenberater;
 import javafx.application.Application;
@@ -10,6 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main extends Application {
@@ -30,6 +35,16 @@ public class Main extends Application {
         managers.add("hermann");
         managers.add("fritz");
 
+        Auto auto = new Auto(0, true, "Seat", "Cupra", 50, 1, 0, 300, LocalDate.now(), "blau", 406);
+        List<Fahrzeug> fahrzeuge = new ArrayList<>();
+        fahrzeuge.add(auto);
+
+        PersistencyService persistencyService = new PersistencyService(fahrzeuge, new ArrayList<>());
+        try {
+            persistencyService.saveData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Setting
         launch(args);
     }
