@@ -30,7 +30,6 @@ public class Main extends Application {
         managers.add("hermann");
         managers.add("fritz");
 
-        //Setting
         launch(args);
     }
 
@@ -76,12 +75,18 @@ public class Main extends Application {
                     errorString = "Falsches Passwort";
                 } else { //If password was correct
                     try {
+                        Stage newStage = new Stage();
+                        //onclose handler
+                        newStage.setOnHiding(event -> {
+                            System.out.println("User logged out");
+                            primaryStage.show();
+                        });
                         if (managers.contains(usernameString)) { //Check if user is a manager
                             Fahrzeugparkmanager fahrzeugparkmanager = new Fahrzeugparkmanager();
-                            fahrzeugparkmanager.start(new Stage());
+                            fahrzeugparkmanager.start(newStage);
                         } else { //If user isn't a manager
                             Kundenberater kundenberater = new Kundenberater();
-                            kundenberater.start(new Stage());
+                            kundenberater.start(newStage);
                         }
                         errorString = "Wilkommen " + usernameString;
                         primaryStage.hide();

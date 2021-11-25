@@ -20,13 +20,16 @@ public class Fahrzeugparkmanager extends Application {
         Menu vehicles = new Menu("Fahrzeuge");
         MenuItem create = new MenuItem("Fahrzeug erfassen");
         MenuItem list = new MenuItem("Fahrzeuge auflisten");
-        Menu logoutMenu = new Menu("Ausloggen");
+        Menu applikation = new Menu("Applikation");
+        MenuItem close = new MenuItem("Schliessen");
+        MenuItem logout = new MenuItem("Ausloggen");
+        applikation.getItems().addAll(logout, close);
         vehicles.getItems().addAll(create, list);
-        menuBar.getMenus().addAll(logoutMenu, vehicles);
+        menuBar.getMenus().addAll(applikation, vehicles);
 
         //Onclick Menu
-        logoutMenu.setOnAction(event->{
-            managerStage.hide();
+        logout.setOnAction(actionEvent -> {
+            managerStage.close();
         });
 
         //root
@@ -35,5 +38,9 @@ public class Fahrzeugparkmanager extends Application {
 
         managerStage.setScene(new Scene(rootLayout, 500, 300));
         managerStage.show();
+    }
+
+    private Scene listCars() {
+        return null;
     }
 }
