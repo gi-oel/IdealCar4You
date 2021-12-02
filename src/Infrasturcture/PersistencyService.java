@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,39 @@ public class PersistencyService {
 
     public PersistencyService() {
         listService = new ListService();
+
+        //Liste wird geladen
+        loadList();
     }
 
     public PersistencyService(List<Fahrzeug> fahrzeuge, List<Kunde> kunden) {
         listService = new ListService(kunden, fahrzeuge);
+
+        //Liste wird geladen
+        loadList();
+    }
+
+    public void loadList() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            this.listService = objectMapper.readValue(Paths.get("daten.json").toFile(), ListService.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Daten werden in datum konvertiert
+        for (int i = 0; i < this.listService.getFahrzeuge().size(); i++) {
+            Fahrzeug changer = this.listService.getFahrzeug(i);
+            changer.setErstzulassung(LocalDate.parse(changer.getErstzulassungString()));
+            this.listService.setFahrzeug(i, changer);
+        }
+        for (int i = 0; i < this.listService.getKunden().size(); i++) {
+            Kunde changer = this.listService.getKunde(i);
+            changer.setGeburtsdatum(LocalDate.parse(changer.getGeburtsdatumString()));
+            this.listService.setKunde(i, changer);
+        }
+
+
     }
 
     public void saveData() throws IOException {
@@ -40,7 +71,7 @@ public class PersistencyService {
             }
         }
 
-        //Convert dates to strings
+        //Datum zu strings konvertieren
         for (int i = 0; i < this.listService.getFahrzeuge().size(); i++) {
             Fahrzeug fahrzeug = this.listService.getFahrzeug(i);
             fahrzeug.setErstzulassungString(fahrzeug.getErstzulassung().toString());
@@ -69,6 +100,22 @@ public class PersistencyService {
 
     public void deleteFahrzeug(Fahrzeug fahrzeug) {
         this.listService.deleteFahrzeug(fahrzeug);
+    }
+
+    public Fahrzeug getFahrzeug(int index) {
+        return this.listService.getFahrzeug(index);
+    }
+
+    public Kunde getkunde(int index) {
+        return this.listService.getKunde(index);
+    }
+
+    public List<Fahrzeug> getFahrzeuge() {
+        return this.listService.getFahrzeuge();
+    }
+
+    public List<Kunde> getKunden() {
+        return this.listService.getKunden();
     }
 }
 
