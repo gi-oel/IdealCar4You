@@ -19,8 +19,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.function.UnaryOperator;
 
 public class Fahrzeugparkmanager extends Application {
     @Override
@@ -61,9 +66,13 @@ public class Fahrzeugparkmanager extends Application {
         //Autos erfassen
         createAuto.setOnAction(action -> {
             rootLayout.setCenter(createCar(Auto.class));
+            managerStage.setWidth(500);
+            managerStage.setHeight(600);
         });
         createTransporter.setOnAction(event -> {
             rootLayout.setCenter(createCar(Transporter.class));
+            managerStage.setWidth(500);
+            managerStage.setHeight(600);
         });
 
         managerStage.setScene(new Scene(rootLayout, 500, 300));
@@ -121,15 +130,23 @@ public class Fahrzeugparkmanager extends Application {
         Text titel = new Text();
         titel.setStyle("-fx-font: 24 arial;");
         titel.setTextAlignment(TextAlignment.CENTER);
+
+        //Zu erstellendes Fahrzeug
+        Fahrzeug neuesFahrzeug;
         if (typ == Auto.class) {
             titel.setText("Auto erfassen");
+            neuesFahrzeug = new Auto();
         } else if (typ == Transporter.class) {
             titel.setText("Transporter erfassen");
+            neuesFahrzeug = new Transporter();
+        } else {
+            neuesFahrzeug = new Auto();
         }
         rootLayout.setTop(titel);
+        rootLayout.setPadding(new Insets(10, 10, 10, 10));
         BorderPane.setAlignment(titel, Pos.CENTER);
 
-        grid.setPadding(new Insets(10, 10, 10, 10));
+        //Gridpane
         ColumnConstraints column0 = new ColumnConstraints();
         column0.setPercentWidth(45);
         ColumnConstraints column1 = new ColumnConstraints();
@@ -139,6 +156,27 @@ public class Fahrzeugparkmanager extends Application {
         grid.getColumnConstraints().addAll(column0, column1, column2);
         Insets insertGroup = new Insets(5, 0, 0, 0);
         Insets groupSeparator = new Insets(10, 0, 0, 0);
+
+        //Text formatter für nummer inputfelder
+        NumberFormat format = NumberFormat.getIntegerInstance();
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            if (c.isContentChange()) {
+                ParsePosition parsePosition = new ParsePosition(0);
+                // NumberFormat beginnt am anfang vom text
+                format.parse(c.getControlNewText(), parsePosition);
+                if (parsePosition.getIndex() == 0 ||
+                        parsePosition.getIndex() < c.getControlNewText().length()) {
+                    // Formattierung wird abgelehnt, wenn alles fehlschlägt
+                    return null;
+                }
+            }
+            return c;
+        };
+        TextFormatter<Integer> numberFormatter = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
+        TextFormatter<Integer> numberFormatter2 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
+        TextFormatter<Integer> numberFormatter3 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
+        SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
+
 
         //Marke
         Text markeText = new Text("Marke:");
@@ -153,10 +191,56 @@ public class Fahrzeugparkmanager extends Application {
         GridPane.setMargin(modelText, groupSeparator);
         grid.add(modelText, 0, 3);
         TextField model = new TextField();
+        model.setPromptText("Model");
         grid.add(model, 0, 4);
         GridPane.setMargin(model, insertGroup);
 
-        //
+        //Hubraum
+        Text hubraumText = new Text("Hubraum in ccm:");
+        grid.add(hubraumText, 0, 5);
+        GridPane.setMargin(hubraumText, groupSeparator);
+        Spinner<Integer> hubraum = new Spinner<>();
+        hubraum.setValueFactory(spinnerValueFactory);
+        hubraum.getEditor().setTextFormatter(numberFormatter);
+        hubraum.setEditable(true);
+        hubraum.setMaxWidth(Double.MAX_VALUE);
+        hubraum.setPromptText("Hubraum in ccm");
+        grid.add(hubraum, 0, 6);
+        GridPane.setMargin(hubraum, insertGroup);
+
+        //Treibstoffart
+        Text treibstoffText = new Text("Treibstoffart:");
+        grid.add(treibstoffText, 0, 7);
+        GridPane.setMargin(treibstoffText, groupSeparator);
+        ChoiceBox<String> treibstoffart = new ChoiceBox<>(FXCollections.observableArrayList(Arrays.asList(neuesFahrzeug.getTreibstoffart())));
+        grid.add(treibstoffart, 0, 8);
+        treibstoffart.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setMargin(treibstoffart, insertGroup);
+
+        //Aktueller KM Stand
+        Text aktuellerKMText = new Text("Aktueller KM Stand:");
+        grid.add(aktuellerKMText, 0, 9);
+        GridPane.setMargin(aktuellerKMText, groupSeparator);
+        Spinner<Integer> kmStand = new Spinner<>();
+        kmStand.setValueFactory(spinnerValueFactory);
+        kmStand.setEditable(true);
+        kmStand.setMaxWidth(Double.MAX_VALUE);
+        kmStand.setPromptText("Aktueller KM Stand");
+        kmStand.getEditor().setTextFormatter(numberFormatter2);
+        grid.add(kmStand, 0, 10);
+        GridPane.setMargin(kmStand, insertGroup);
+
+        //Leistung
+        Text leistungsText = new Text("Leistung in PS:");
+        grid.add(leistungsText, 0, 11);
+        GridPane.setMargin(leistungsText, groupSeparator);
+        Spinner<Integer> leistung = new Spinner<>();
+        leistung.setEditable(true);
+        leistung.setMaxWidth(Double.MAX_VALUE);
+        leistung.getEditor().setTextFormatter(numberFormatter3);
+        leistung.setValueFactory(spinnerValueFactory);
+        grid.add(leistung, 0, 12);
+
         rootLayout.setCenter(grid);
         return rootLayout;
     }
