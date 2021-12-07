@@ -29,7 +29,7 @@ import java.util.function.UnaryOperator;
 
 public class Fahrzeugparkmanager extends Application {
     @Override
-    public void start(Stage managerStage) throws Exception {
+    public void start(Stage managerStage) {
         managerStage.setTitle("Fahrzeugparkmanager");
         managerStage.getIcons().add(new Image("logo.png"));
 
@@ -66,13 +66,13 @@ public class Fahrzeugparkmanager extends Application {
         //Autos erfassen
         createAuto.setOnAction(action -> {
             rootLayout.setCenter(createCar(Auto.class));
-            managerStage.setWidth(500);
-            managerStage.setHeight(600);
+            managerStage.setWidth(700);
+            managerStage.setHeight(450);
         });
         createTransporter.setOnAction(event -> {
             rootLayout.setCenter(createCar(Transporter.class));
-            managerStage.setWidth(500);
-            managerStage.setHeight(600);
+            managerStage.setWidth(700);
+            managerStage.setHeight(450);
         });
 
         managerStage.setScene(new Scene(rootLayout, 500, 300));
@@ -175,6 +175,8 @@ public class Fahrzeugparkmanager extends Application {
         TextFormatter<Integer> numberFormatter = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         TextFormatter<Integer> numberFormatter2 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         TextFormatter<Integer> numberFormatter3 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
+        TextFormatter<Integer> numberFormatter4 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
+        TextFormatter<Integer> numberFormatter5 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
 
 
@@ -232,14 +234,88 @@ public class Fahrzeugparkmanager extends Application {
 
         //Leistung
         Text leistungsText = new Text("Leistung in PS:");
-        grid.add(leistungsText, 0, 11);
+        grid.add(leistungsText, 2, 1);
         GridPane.setMargin(leistungsText, groupSeparator);
         Spinner<Integer> leistung = new Spinner<>();
         leistung.setEditable(true);
         leistung.setMaxWidth(Double.MAX_VALUE);
         leistung.getEditor().setTextFormatter(numberFormatter3);
         leistung.setValueFactory(spinnerValueFactory);
-        grid.add(leistung, 0, 12);
+        grid.add(leistung, 2, 2);
+
+        //Erstzulassung
+        Text erstzulassungsText = new Text("Erstzulassung");
+        grid.add(erstzulassungsText, 2, 3);
+        GridPane.setMargin(erstzulassungsText, groupSeparator);
+        DatePicker erstzulassung = new DatePicker();
+        grid.add(erstzulassung, 2, 4);
+        erstzulassung.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setMargin(erstzulassung, insertGroup);
+
+        //Aussenfarbe
+        Text aussenfarbetext = new Text("Aussenfarbe:");
+        grid.add(aussenfarbetext, 2, 5);
+        GridPane.setMargin(aussenfarbetext, groupSeparator);
+        TextField aussenfarbe = new TextField();
+        aussenfarbe.setPromptText("Aussenfarbe");
+        grid.add(aussenfarbe, 2, 6);
+        GridPane.setMargin(aussenfarbe, insertGroup);
+
+        //Leergewicht
+        Text leergewichtText = new Text("Leergewicht in KG:");
+        grid.add(leergewichtText, 2, 7);
+        GridPane.setMargin(leergewichtText, groupSeparator);
+        Spinner<Integer> leergewicht = new Spinner<>();
+        leergewicht.setValueFactory(spinnerValueFactory);
+        leergewicht.getEditor().setTextFormatter(numberFormatter4);
+        leergewicht.setEditable(true);
+        grid.add(leergewicht, 2, 8);
+        leergewicht.setMaxWidth(Double.MAX_VALUE);
+        GridPane.setMargin(leergewicht, insertGroup);
+
+        //Aufbau
+        Text aufbauText = new Text("Aufbau:");
+        ChoiceBox<String> aufbau = new ChoiceBox<>();
+
+        //Navigation
+        Text navigationText = new Text("Navigation:");
+        CheckBox navigation = new CheckBox();
+
+        //Maximale zuladung
+        Text maximalezuladungText = new Text("Maximale Zuladung in KG:");
+        Spinner<Integer> maximalezuladung = new Spinner<>();
+
+        //if user is creating a car
+        if (neuesFahrzeug instanceof Auto) {
+            //Aufbau
+            grid.add(aufbauText, 2, 9);
+            GridPane.setMargin(aufbauText, groupSeparator);
+            aufbau.setItems(FXCollections.observableList((Arrays.asList(((Auto) neuesFahrzeug).getAufbau()))));
+            aufbau.setMaxWidth(Double.MAX_VALUE);
+            grid.add(aufbau, 2, 10);
+            GridPane.setMargin(aufbau, insertGroup);
+
+            //Navigationsystem
+            grid.add(navigationText, 2, 11);
+            GridPane.setMargin(navigationText, groupSeparator);
+            grid.add(navigation, 2, 12);
+            GridPane.setMargin(navigation, insertGroup);
+        } else {
+            //Maximale zuladung
+            grid.add(maximalezuladungText, 2, 9);
+            GridPane.setMargin(maximalezuladungText, groupSeparator);
+            maximalezuladung.setValueFactory(spinnerValueFactory);
+            maximalezuladung.getEditor().setTextFormatter(numberFormatter5);
+            maximalezuladung.setEditable(true);
+            grid.add(maximalezuladung, 2, 10);
+            GridPane.setMargin(maximalezuladung, insertGroup);
+        }
+
+        //Speichern
+        Button saveButton = new Button("Speichern");
+        grid.add(saveButton, 0, 11, 1, 11);
+        GridPane.setMargin(saveButton, groupSeparator);
+        saveButton.setMaxWidth(Double.MAX_VALUE);
 
         rootLayout.setCenter(grid);
         return rootLayout;
