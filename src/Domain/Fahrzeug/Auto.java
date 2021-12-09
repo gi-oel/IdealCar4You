@@ -2,9 +2,7 @@ package Domain.Fahrzeug;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +33,7 @@ public class Auto extends Fahrzeug {
         }
     }
 
-    public boolean isNavigation() {
+    public boolean getNavigation() {
         return navigation;
     }
 

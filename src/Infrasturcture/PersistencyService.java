@@ -106,12 +106,22 @@ public class PersistencyService {
         saveData();
     }
 
+    public void setFahrzeug(int index, Fahrzeug fahrzeug) throws IOException {
+        this.listService.setFahrzeug(index, fahrzeug);
+        saveData();
+    }
+
     public Fahrzeug getFahrzeug(int index) {
         return this.listService.getFahrzeug(index);
     }
 
     public Kunde getkunde(int index) {
         return this.listService.getKunde(index);
+    }
+
+    public void setKunde(int index, Kunde kunde) throws IOException {
+        this.listService.setKunde(index, kunde);
+        saveData();
     }
 
     public List<Fahrzeug> getFahrzeuge() {

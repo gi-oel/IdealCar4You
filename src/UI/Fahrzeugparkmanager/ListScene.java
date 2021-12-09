@@ -5,12 +5,17 @@ import Domain.Fahrzeug.Fahrzeug;
 import Infrasturcture.PersistencyService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 
@@ -44,6 +49,17 @@ public class ListScene {
         rightBox.setPadding(new Insets(10, 10, 10, 10));
         rightBox.setAlignment(Pos.CENTER);
 
+        //Edit / Detail event handler
+        EventHandler<ActionEvent> detailEvent = actionEvent -> {
+            Stage detailStage = new Stage();
+            detailStage.setTitle("Detailansicht / Bearbeiten");
+            detailStage.getIcons().add(new Image("logo.png"));
+            detailStage.setScene(new Scene(DetailScene.editScene(ps.getFahrzeug(vehicleListView.getSelectionModel().getSelectedIndex()), vehicleListView.getSelectionModel().getSelectedIndex()), 500, 450));
+            detailStage.show();
+        };
+        detailButton.setOnAction(detailEvent);
+        editButton.setOnAction(detailEvent);
+
         //Alle Fahrzeuge in Liste einfügen
         for (int i = 0; i < ps.getFahrzeuge().size(); i++) {
             Fahrzeug vehicle = ps.getFahrzeug(i);
@@ -62,7 +78,7 @@ public class ListScene {
 
             //Wenn der Benutzer 2 mal klickt
             if (click.getClickCount() == 2) {
-
+                detailButton.fire();
             }
         });
 
