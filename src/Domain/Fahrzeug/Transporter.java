@@ -1,6 +1,7 @@
 package Domain.Fahrzeug;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Transporter extends Fahrzeug {
     private int maxZuladung;
@@ -19,5 +20,9 @@ public class Transporter extends Fahrzeug {
 
     public void setMaxZuladung(int maxZuladung) {
         this.maxZuladung = maxZuladung;
+    }
+
+    public List<String> validateVehicle() {
+        return super.validateInputSuper();
     }
 }

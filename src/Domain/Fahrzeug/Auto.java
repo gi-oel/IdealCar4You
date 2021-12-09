@@ -48,8 +48,6 @@ public class Auto extends Fahrzeug {
     }
 
     public List<String> validateInput() {
-        List<String> missingCar = super.validateInputSuper();
-
-        return missingCar;
+        return super.validateInputSuper();
     }
 }

@@ -244,7 +244,7 @@ public class VehicleScenes {
                     ((Auto) neuesFahrzeug).setNavigation(navigation.isSelected());
 
                     //Wenn es ein transporter ist weerden diese zusätzlichen daten gespeichert
-                } else if (neuesFahrzeug instanceof Transporter) {
+                } else {
                     ((Transporter) neuesFahrzeug).setMaxZuladung(maximalezuladung.getValue());
                 }
 
