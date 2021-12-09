@@ -22,6 +22,7 @@ public class Transporter extends Fahrzeug {
         this.maxZuladung = maxZuladung;
     }
 
+    @Override
     public List<String> validateVehicle() {
         return super.validateInputSuper();
     }

@@ -145,15 +145,17 @@ public abstract class Fahrzeug {
         if (this.marke.equals("")) {
             missing.add("Marke");
         }
-        if (this.marke.equals("")) {
-            missing.add("Marke");
+        if (this.model.equals("")) {
+            missing.add("Model");
         }
-        if (this.erstzulassung == null){
+        if (this.erstzulassung == null) {
             missing.add("Erstzulassung");
         }
-        if (this.color.equals("")){
+        if (this.color.equals("")) {
             missing.add("Farbe");
         }
-            return missing;
+        return missing;
     }
+
+    public abstract List<String> validateVehicle();
 }

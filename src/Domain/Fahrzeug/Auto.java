@@ -47,7 +47,8 @@ public class Auto extends Fahrzeug {
         return aufbau;
     }
 
-    public List<String> validateInput() {
+    @Override
+    public List<String> validateVehicle() {
         return super.validateInputSuper();
     }
 }

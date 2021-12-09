@@ -15,15 +15,16 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.converter.IntegerStringConverter;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class VehicleScenes {
+public class CreateScene {
 
-    static BorderPane createVehicle(Class typ) {
+    //Fahrzeug erstellen
+    public static BorderPane createVehicle(Class typ, MenuItem listVehicles) {
         //layout
         BorderPane rootLayout = new BorderPane();
         GridPane grid = new GridPane();
@@ -248,16 +249,25 @@ public class VehicleScenes {
                     ((Transporter) neuesFahrzeug).setMaxZuladung(maximalezuladung.getValue());
                 }
 
-                //Fahtzeug hinzufügen
-                persistencyService.addFahrzeug(neuesFahrzeug);
+                //Validieren, was noch nicht ausgefüllt wurde
+                List<String> fehleingaben = neuesFahrzeug.validateVehicle();
+                if (fehleingaben.size() != 0) {
+                    Alert ausfuellungsfehler = new Alert(Alert.AlertType.WARNING);
+                    ausfuellungsfehler.setHeaderText("Angaben überprüfen");
+                    ausfuellungsfehler.setContentText("Bitte überprüfen Sie folgende Angaben: " + fehleingaben + " und vergewissern Sie sich, dass Sie alles ausgefüllt haben!");
+                    ausfuellungsfehler.showAndWait();
+                } else {
+                    //Fahrzeug hinzufügen, wenn alles korrekt eingegeben wurde
+                    persistencyService.addFahrzeug(neuesFahrzeug);
+                    System.out.println("Benutzer hat ein Fahrzeug erstellt");
+                    listVehicles.fire();
+                }
             } catch (Exception e) {
-                e.printStackTrace();
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("Fehlerhafte Eingaben");
-                errorAlert.setContentText("Nicht alle Eingaben sind Korrekt eingegeben worden");
+                errorAlert.setHeaderText("Speicherungsfehler");
+                errorAlert.setContentText("Ein Fehler ist aufgetreten! Das Fahrzeug konnte nicht gespeichert werden!");
                 errorAlert.showAndWait();
             }
-            System.out.println("Benutzer hat ein Fahrzeug erstellt");
         });
 
         rootLayout.setCenter(grid);
