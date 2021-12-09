@@ -26,19 +26,6 @@
     "aufbauID" : 0,
     "navigation" : true
   }, {
-    "@class" : "Domain.Fahrzeug.Auto",
-    "marke" : "dhfb",
-    "model" : "djbnfg",
-    "hubraum" : 4322,
-    "treibstoffartID" : 0,
-    "aktuellerKMStand" : 12,
-    "ps" : 4322,
-    "erstzulassungString" : "2021-12-09",
-    "color" : "Blau",
-    "leergewicht" : 4322,
-    "aufbauID" : 0,
-    "navigation" : true
-  }, {
     "@class" : "Domain.Fahrzeug.Transporter",
     "marke" : "Dani",
     "model" : "Bitch",

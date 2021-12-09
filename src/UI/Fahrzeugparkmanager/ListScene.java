@@ -10,18 +10,19 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 public class ListScene {
     //Fahrzeuge auflisten
-    public static BorderPane listCars() {
+    public static BorderPane listCars(MenuItem menuItem) {
         //Instance for persistency service
         PersistencyService ps = new PersistencyService();
         System.out.println("Anzahl Fahrzeuge in liste: " + ps.getFahrzeuge().size());
@@ -79,6 +80,26 @@ public class ListScene {
             //Wenn der Benutzer 2 mal klickt
             if (click.getClickCount() == 2) {
                 detailButton.fire();
+            }
+        });
+
+        //Wenn auf löschen geklickt wird
+        deleteButton.setOnAction(event -> {
+            Fahrzeug toDelete = ps.getFahrzeug(vehicleListView.getSelectionModel().getSelectedIndex());
+            Alert bestaetigung = new Alert(Alert.AlertType.CONFIRMATION);
+            bestaetigung.setHeaderText("Löschen bestätigen");
+            bestaetigung.setContentText("Wollen Sie das Fahrzeug " + toDelete.getMarke() + " " + toDelete.getModel() + " wirklich löschen?");
+            Optional<ButtonType> result = bestaetigung.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    ps.deleteFahrzeug(toDelete);
+                    menuItem.fire();
+                } catch (IOException e) {
+                    Alert fail = new Alert(Alert.AlertType.ERROR);
+                    fail.setHeaderText("Löschen fehlgeschlagen");
+                    fail.setContentText(toDelete.getMarke() + " " + toDelete.getModel() + " konnte nicht gelöscht werden!");
+                    fail.showAndWait();
+                }
             }
         });
 

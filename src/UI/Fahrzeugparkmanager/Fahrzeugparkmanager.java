@@ -31,7 +31,7 @@ public class Fahrzeugparkmanager extends Application {
         //Root layout definieren
         BorderPane rootLayout = new BorderPane();
         rootLayout.setTop(menuBar);
-        rootLayout.setCenter(ListScene.listCars());
+        rootLayout.setCenter(ListScene.listCars(list));
 
         //User logt sich aus
         logout.setOnAction(actionEvent -> {
@@ -43,7 +43,7 @@ public class Fahrzeugparkmanager extends Application {
         });
         //Autos auflisen
         list.setOnAction(event -> {
-            rootLayout.setCenter(ListScene.listCars());
+            rootLayout.setCenter(ListScene.listCars(list));
         });
         //Autos erfassen
         createAuto.setOnAction(action -> {
