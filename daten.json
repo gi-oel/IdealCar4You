@@ -30,14 +30,26 @@
     "marke" : "dhfb",
     "model" : "djbnfg",
     "hubraum" : 4322,
-    "treibstoffartID" : 1,
+    "treibstoffartID" : 0,
     "aktuellerKMStand" : 4322,
     "ps" : 4322,
     "erstzulassungString" : "2021-12-09",
     "color" : "zrr",
     "leergewicht" : 4322,
-    "aufbauID" : 2,
+    "aufbauID" : 0,
     "navigation" : true
+  }, {
+    "@class" : "Domain.Fahrzeug.Transporter",
+    "marke" : "Dani",
+    "model" : "Bitch",
+    "hubraum" : 9348730,
+    "treibstoffartID" : 1,
+    "aktuellerKMStand" : 1,
+    "ps" : 34,
+    "erstzulassungString" : "2021-01-01",
+    "color" : "Braun",
+    "leergewicht" : 948590,
+    "maxZuladung" : 34555
   } ],
   "kunden" : [ {
     "name" : "Petrillo",

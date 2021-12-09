@@ -2,7 +2,10 @@ package Domain.Fahrzeug;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Auto extends Fahrzeug {
@@ -26,7 +29,7 @@ public class Auto extends Fahrzeug {
 
     public void setAufbauID(String aufbau) {
         for (int i = 0; i < this.aufbau.length; i++) {
-            if (Objects.equals(this.aufbau[i], aufbau)){
+            if (Objects.equals(this.aufbau[i], aufbau)) {
                 this.aufbauID = i;
             }
         }
@@ -42,5 +45,11 @@ public class Auto extends Fahrzeug {
 
     public String[] getAufbau() {
         return aufbau;
+    }
+
+    public List<String> validateInput() {
+        List<String> missingCar = super.validateInputSuper();
+
+        return missingCar;
     }
 }

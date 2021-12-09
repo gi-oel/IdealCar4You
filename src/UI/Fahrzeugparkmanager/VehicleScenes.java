@@ -226,30 +226,36 @@ public class VehicleScenes {
             //Persistency service
             PersistencyService persistencyService = new PersistencyService();
 
-            //Set attributes
-            neuesFahrzeug.setMarke(marke.getText());
-            neuesFahrzeug.setModel(model.getText());
-            neuesFahrzeug.setHubraum(hubraum.getValue());
-            neuesFahrzeug.setTreibstoffartID(treibstoffart.getValue());
-            neuesFahrzeug.setAktuellerKMStand(kmStand.getValue());
-            neuesFahrzeug.setPs(leistung.getValue());
-            neuesFahrzeug.setErstzulassung(erstzulassung.getValue());
-            neuesFahrzeug.setColor(aussenfarbe.getText());
-            neuesFahrzeug.setLeergewicht(leergewicht.getValue());
-
-            //Wenn das fahrzeug ein auto ist, dann werden die zusätzlichen Daten auch gespeichert
-            if (neuesFahrzeug instanceof Auto) {
-                ((Auto) neuesFahrzeug).setAufbauID(aufbau.getValue());
-                ((Auto) neuesFahrzeug).setNavigation(navigation.isSelected());
-
-                //Wenn es ein transporter ist weerden diese zusätzlichen daten gespeichert
-            } else if (neuesFahrzeug instanceof Transporter) {
-                ((Transporter) neuesFahrzeug).setMaxZuladung(maximalezuladung.getValue());
-            }
             try {
+                //Set attributes
+                neuesFahrzeug.setMarke(marke.getText());
+                neuesFahrzeug.setModel(model.getText());
+                neuesFahrzeug.setHubraum(hubraum.getValue());
+                neuesFahrzeug.setTreibstoffartID(treibstoffart.getValue());
+                neuesFahrzeug.setAktuellerKMStand(kmStand.getValue());
+                neuesFahrzeug.setPs(leistung.getValue());
+                neuesFahrzeug.setErstzulassung(erstzulassung.getValue());
+                neuesFahrzeug.setColor(aussenfarbe.getText());
+                neuesFahrzeug.setLeergewicht(leergewicht.getValue());
+
+                //Wenn das fahrzeug ein auto ist, dann werden die zusätzlichen Daten auch gespeichert
+                if (neuesFahrzeug instanceof Auto) {
+                    ((Auto) neuesFahrzeug).setAufbauID(aufbau.getValue());
+                    ((Auto) neuesFahrzeug).setNavigation(navigation.isSelected());
+
+                    //Wenn es ein transporter ist weerden diese zusätzlichen daten gespeichert
+                } else if (neuesFahrzeug instanceof Transporter) {
+                    ((Transporter) neuesFahrzeug).setMaxZuladung(maximalezuladung.getValue());
+                }
+
+                //Fahtzeug hinzufügen
                 persistencyService.addFahrzeug(neuesFahrzeug);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Fehlerhafte Eingaben");
+                errorAlert.setContentText("Nicht alle Eingaben sind Korrekt eingegeben worden");
+                errorAlert.showAndWait();
             }
             System.out.println("Benutzer hat ein Fahrzeug erstellt");
         });

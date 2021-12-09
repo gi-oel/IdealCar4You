@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -135,5 +138,22 @@ public abstract class Fahrzeug {
 
     public void setErstzulassungString(String erstzulassungString) {
         this.erstzulassungString = erstzulassungString;
+    }
+
+    public List<String> validateInputSuper() {
+        List<String> missing = new ArrayList<>();
+        if (this.marke.equals("")) {
+            missing.add("Marke");
+        }
+        if (this.marke.equals("")) {
+            missing.add("Marke");
+        }
+        if (this.erstzulassung == null){
+            missing.add("Erstzulassung");
+        }
+        if (this.color.equals("")){
+            missing.add("Farbe");
+        }
+            return missing;
     }
 }
