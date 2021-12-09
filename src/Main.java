@@ -1,5 +1,5 @@
-import UI.Fahrzeugparkmanager;
-import UI.Kundenberater;
+import UI.Fahrzeugparkmanager.Fahrzeugparkmanager;
+import UI.Kundeberater.Kundenberater;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

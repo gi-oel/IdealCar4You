@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonTypeInfo(
@@ -75,8 +76,13 @@ public abstract class Fahrzeug {
         return treibstoffartID;
     }
 
-    public void setTreibstoffartID(int treibstoffartID) {
-        this.treibstoffartID = treibstoffartID;
+    public void setTreibstoffartID(String treibstoffart) {
+        for (int i = 0; i < this.treibstoffart.length; i++) {
+            if (Objects.equals(this.treibstoffart[i], treibstoffart)) {
+                this.treibstoffartID = i;
+                i = this.treibstoffart.length;
+            }
+        }
     }
 
     public int getAktuellerKMStand() {

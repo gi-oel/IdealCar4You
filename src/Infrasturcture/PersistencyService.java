@@ -86,20 +86,24 @@ public class PersistencyService {
         om.writeValue(datenFile, listService);
     }
 
-    public void addFahrzeug(Fahrzeug fahrzeug) {
+    public void addFahrzeug(Fahrzeug fahrzeug) throws IOException {
         this.listService.addFahrzeug(fahrzeug);
+        saveData();
     }
 
-    public void addKunde(Kunde kunde) {
+    public void addKunde(Kunde kunde) throws IOException {
         this.listService.addKunde(kunde);
+        saveData();
     }
 
-    public void deleteKunde(Kunde kunde) {
+    public void deleteKunde(Kunde kunde) throws IOException {
         this.listService.deleteKunde(kunde);
+        saveData();
     }
 
-    public void deleteFahrzeug(Fahrzeug fahrzeug) {
+    public void deleteFahrzeug(Fahrzeug fahrzeug) throws IOException {
         this.listService.deleteFahrzeug(fahrzeug);
+        saveData();
     }
 
     public Fahrzeug getFahrzeug(int index) {

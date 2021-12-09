@@ -1,129 +1,29 @@
-package UI;
+package UI.Fahrzeugparkmanager;
 
 import Domain.Fahrzeug.Auto;
 import Domain.Fahrzeug.Fahrzeug;
 import Domain.Fahrzeug.Transporter;
 import Infrasturcture.PersistencyService;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.function.UnaryOperator;
 
-public class Fahrzeugparkmanager extends Application {
-    @Override
-    public void start(Stage managerStage) {
-        managerStage.setTitle("Fahrzeugparkmanager");
-        managerStage.getIcons().add(new Image("logo.png"));
+public class VehicleScenes {
 
-        //Menu Bar
-        MenuBar menuBar = new MenuBar();
-        Menu vehiclesMenu = new Menu("Fahrzeuge");
-        MenuItem createAuto = new MenuItem("Auto erfassen");
-        MenuItem createTransporter = new MenuItem("Transporter erfassen");
-        MenuItem list = new MenuItem("Fahrzeuge auflisten");
-        Menu applikation = new Menu("Applikation");
-        MenuItem close = new MenuItem("Schliessen");
-        MenuItem logout = new MenuItem("Ausloggen");
-        applikation.getItems().addAll(logout, close);
-        vehiclesMenu.getItems().addAll(createAuto, createTransporter, list);
-        menuBar.getMenus().addAll(applikation, vehiclesMenu);
-
-        //Root layout definieren
-        BorderPane rootLayout = new BorderPane();
-        rootLayout.setTop(menuBar);
-        rootLayout.setCenter(listCars());
-
-        //User logt sich aus
-        logout.setOnAction(actionEvent -> {
-            managerStage.close();
-        });
-        //applikation schliessen
-        close.setOnAction(actionEvent -> {
-            Runtime.getRuntime().exit(0);
-        });
-        //Autos auflisen
-        list.setOnAction(event -> {
-            rootLayout.setCenter(listCars());
-        });
-        //Autos erfassen
-        createAuto.setOnAction(action -> {
-            rootLayout.setCenter(createCar(Auto.class));
-            managerStage.setWidth(700);
-            managerStage.setHeight(450);
-        });
-        createTransporter.setOnAction(event -> {
-            rootLayout.setCenter(createCar(Transporter.class));
-            managerStage.setWidth(700);
-            managerStage.setHeight(450);
-        });
-
-        managerStage.setScene(new Scene(rootLayout, 500, 300));
-        managerStage.show();
-    }
-
-    private BorderPane listCars() {
-        //Instance for persistency service
-        PersistencyService ps = new PersistencyService();
-        System.out.println("Anzahl Fahrzeuge in liste: " + ps.getFahrzeuge().size());
-
-        //List
-        ListView<String> vehicleListView = new ListView<>();
-        ObservableList<String> vehiclesList = FXCollections.observableArrayList();
-
-        //add buttons to right side
-        VBox rightBox = new VBox(20);
-        Button deleteButton = new Button("Löschen");
-        Button detailButton = new Button("Detailansicht");
-        Button editButton = new Button("Bearbeiten");
-        Button newButton = new Button("Neu");
-        //Knopfweite wird gleich gemacht wie längster knopf und deaktivieren
-        detailButton.setPrefWidth(100);
-        detailButton.setDisable(true);
-        deleteButton.setMinWidth(detailButton.getPrefWidth());
-        deleteButton.setDisable(true);
-        editButton.setMinWidth(detailButton.getPrefWidth());
-        editButton.setDisable(true);
-        //ins layout hinzufügen
-        rightBox.getChildren().add(detailButton);
-        rightBox.getChildren().add(editButton);
-        rightBox.getChildren().add(deleteButton);
-        rightBox.setPadding(new Insets(10, 10, 10, 10));
-        rightBox.setAlignment(Pos.CENTER);
-
-        //Alle Fahrzeuge in Liste einfügen
-        for (int i = 0; i < ps.getFahrzeuge().size(); i++) {
-            Fahrzeug vehicle = ps.getFahrzeug(i);
-            String vehicleType = vehicle instanceof Auto ? "Auto" : "Transporter";
-            vehiclesList.add(vehicleType + ": " + vehicle.getMarke() + " " + vehicle.getModel() + ", Farbe: " + vehicle.getColor() + ", Erstzulassung: " + vehicle.getErstzulassung().format(DateTimeFormatter.ofPattern("d.M.u")));
-        }
-        vehicleListView.setItems(vehiclesList);
-
-        //root
-        BorderPane rootLayout = new BorderPane();
-        rootLayout.setCenter(vehicleListView);
-        rootLayout.setRight(rightBox);
-        return rootLayout;
-    }
-
-    private BorderPane createCar(Class typ) {
+    static BorderPane createVehicle(Class typ) {
         //layout
         BorderPane rootLayout = new BorderPane();
         GridPane grid = new GridPane();
@@ -178,7 +78,10 @@ public class Fahrzeugparkmanager extends Application {
         TextFormatter<Integer> numberFormatter4 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         TextFormatter<Integer> numberFormatter5 = new TextFormatter<>(new IntegerStringConverter(), 0, filter);
         SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
-
+        SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
+        SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory3 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
+        SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory4 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
+        SpinnerValueFactory.IntegerSpinnerValueFactory spinnerValueFactory5 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999999999);
 
         //Marke
         Text markeText = new Text("Marke:");
@@ -224,7 +127,7 @@ public class Fahrzeugparkmanager extends Application {
         grid.add(aktuellerKMText, 0, 9);
         GridPane.setMargin(aktuellerKMText, groupSeparator);
         Spinner<Integer> kmStand = new Spinner<>();
-        kmStand.setValueFactory(spinnerValueFactory);
+        kmStand.setValueFactory(spinnerValueFactory2);
         kmStand.setEditable(true);
         kmStand.setMaxWidth(Double.MAX_VALUE);
         kmStand.setPromptText("Aktueller KM Stand");
@@ -240,7 +143,7 @@ public class Fahrzeugparkmanager extends Application {
         leistung.setEditable(true);
         leistung.setMaxWidth(Double.MAX_VALUE);
         leistung.getEditor().setTextFormatter(numberFormatter3);
-        leistung.setValueFactory(spinnerValueFactory);
+        leistung.setValueFactory(spinnerValueFactory3);
         grid.add(leistung, 2, 2);
 
         //Erstzulassung
@@ -266,7 +169,7 @@ public class Fahrzeugparkmanager extends Application {
         grid.add(leergewichtText, 2, 7);
         GridPane.setMargin(leergewichtText, groupSeparator);
         Spinner<Integer> leergewicht = new Spinner<>();
-        leergewicht.setValueFactory(spinnerValueFactory);
+        leergewicht.setValueFactory(spinnerValueFactory4);
         leergewicht.getEditor().setTextFormatter(numberFormatter4);
         leergewicht.setEditable(true);
         grid.add(leergewicht, 2, 8);
@@ -304,18 +207,52 @@ public class Fahrzeugparkmanager extends Application {
             //Maximale zuladung
             grid.add(maximalezuladungText, 2, 9);
             GridPane.setMargin(maximalezuladungText, groupSeparator);
-            maximalezuladung.setValueFactory(spinnerValueFactory);
+            maximalezuladung.setValueFactory(spinnerValueFactory5);
             maximalezuladung.getEditor().setTextFormatter(numberFormatter5);
             maximalezuladung.setEditable(true);
+            maximalezuladung.setMaxWidth(Double.MAX_VALUE);
             grid.add(maximalezuladung, 2, 10);
             GridPane.setMargin(maximalezuladung, insertGroup);
         }
 
         //Speichern
         Button saveButton = new Button("Speichern");
-        grid.add(saveButton, 0, 11, 1, 11);
+        grid.add(saveButton, 0, 13, 3, 13);
         GridPane.setMargin(saveButton, groupSeparator);
         saveButton.setMaxWidth(Double.MAX_VALUE);
+
+        //Wenn der speichern knopf gedrückt wird
+        saveButton.setOnAction(action -> {
+            //Persistency service
+            PersistencyService persistencyService = new PersistencyService();
+
+            //Set attributes
+            neuesFahrzeug.setMarke(marke.getText());
+            neuesFahrzeug.setModel(model.getText());
+            neuesFahrzeug.setHubraum(hubraum.getValue());
+            neuesFahrzeug.setTreibstoffartID(treibstoffart.getValue());
+            neuesFahrzeug.setAktuellerKMStand(kmStand.getValue());
+            neuesFahrzeug.setPs(leistung.getValue());
+            neuesFahrzeug.setErstzulassung(erstzulassung.getValue());
+            neuesFahrzeug.setColor(aussenfarbe.getText());
+            neuesFahrzeug.setLeergewicht(leergewicht.getValue());
+
+            //Wenn das fahrzeug ein auto ist, dann werden die zusätzlichen Daten auch gespeichert
+            if (neuesFahrzeug instanceof Auto) {
+                ((Auto) neuesFahrzeug).setAufbauID(aufbau.getValue());
+                ((Auto) neuesFahrzeug).setNavigation(navigation.isSelected());
+
+                //Wenn es ein transporter ist weerden diese zusätzlichen daten gespeichert
+            } else if (neuesFahrzeug instanceof Transporter) {
+                ((Transporter) neuesFahrzeug).setMaxZuladung(maximalezuladung.getValue());
+            }
+            try {
+                persistencyService.addFahrzeug(neuesFahrzeug);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Benutzer hat ein Fahrzeug erstellt");
+        });
 
         rootLayout.setCenter(grid);
         return rootLayout;
