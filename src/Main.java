@@ -26,8 +26,7 @@ public class Main extends Application {
         logins.put("faeh", "dumm");
 
         //Setting managers
-        managers = new ArrayList<>() {
-        };
+        managers = new ArrayList<>();
         managers.add("hermann");
         managers.add("fritz");
 
@@ -35,7 +34,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("IdealCar4You");
         Text login = new Text("Login");
         primaryStage.getIcons().add(new Image("logo.png"));
@@ -60,8 +59,8 @@ public class Main extends Application {
         Button loginButton = new Button("Login");
 
         //Autologin
-        username.setText("hermann");
-        password.setText("starkesPasswort");
+        username.setText("amanda");
+        password.setText("besteBeraterin");
 
         //Error Text
         Text error = new Text();
@@ -72,7 +71,7 @@ public class Main extends Application {
             String passwordString = password.getText();
 
             //Check if user exists and password correct
-            String errorString = "An Error occured";
+            String errorString = "Es ist ein Fehler aufgetreten";
             if (!logins.containsKey(usernameString)) {
                 errorString = "Benutzer nicht gefunden";
             } else { //Check password
@@ -84,7 +83,7 @@ public class Main extends Application {
                         Stage newStage = new Stage();
                         //onclose handler
                         newStage.setOnHiding(event -> {
-                            System.out.println("User logged out");
+                            System.out.println("Benutzer hat sich abgemeldet");
                             primaryStage.show();
                         });
                         if (managers.contains(usernameString)) { //Check if user is a manager
