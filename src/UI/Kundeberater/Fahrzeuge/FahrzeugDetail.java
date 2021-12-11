@@ -102,7 +102,6 @@ public class FahrzeugDetail {
 
             //Daten
             aufbau.setText(((Auto) fahrzeug).getAufbau()[((Auto) fahrzeug).getAufbauID()]);
-            System.out.println(((Auto) fahrzeug).getAufbau()[((Auto) fahrzeug).getAufbauID()]);
             navigation.setSelected(((Auto) fahrzeug).getNavigation());
         } else {
             Text maxZuladungText = new Text("Maximale Zuladung in KG:");
