@@ -1,11 +1,15 @@
 package UI.Kundeberater.Fahrzeuge;
 
+import Domain.Fahrzeug.Auto;
 import Domain.Fahrzeug.Fahrzeug;
+import Domain.Fahrzeug.Transporter;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -17,59 +21,112 @@ public class FahrzeugDetail {
         detailStage.setTitle("Detailansicht");
         detailStage.getIcons().add(new Image("logo.png"));
 
-        //Grid
-        GridPane grid = new GridPane();
-        ColumnConstraints column0 = new ColumnConstraints();
-        column0.setPercentWidth(45);
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(10);
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(45);
-        grid.getColumnConstraints().addAll(column0, column1, column2);
+        BorderPane bp = new BorderPane();
+        bp.setPadding(new Insets(10, 10, 10, 10));
+        VBox vBox = new VBox(10);
         Insets groupInset = new Insets(0, 10, 0, 0);
-        Insets inGroupInset = new Insets(0, 5, 0, 0);
 
         //Titel
         Text titel = new Text("Detailansicht");
         titel.setStyle("-fx-font: 24 arial;");
         titel.setTextAlignment(TextAlignment.CENTER);
-        grid.add(titel, 1, 0, 3, 1);
-        GridPane.setMargin(titel, groupInset);
+        bp.setTop(titel);
 
         //Marke
         Text marketitel = new Text("Marke:");
-        grid.add(marketitel, 0, 1);
-        GridPane.setMargin(marketitel, groupInset);
+        VBox.setMargin(marketitel, groupInset);
         Text marke = new Text();
-        grid.add(marke, 0, 2);
-        GridPane.setMargin(marke, inGroupInset);
 
         //Model
         Text modelTitel = new Text("Model:");
-        grid.add(modelTitel, 0, 3);
-        GridPane.setMargin(modelTitel, groupInset);
+        VBox.setMargin(modelTitel, groupInset);
         Text model = new Text();
-        grid.add(model, 0, 4);
-        GridPane.setMargin(model, inGroupInset);
 
         //Hubraum
         Text hubraumTitel = new Text("Hubraum in ccm:");
-        grid.add(hubraumTitel, 0, 5);
-        GridPane.setMargin(hubraumTitel, groupInset);
+        VBox.setMargin(hubraumTitel, groupInset);
         Text hubraum = new Text();
-        grid.add(hubraum, 0, 6);
-        GridPane.setMargin(hubraum, inGroupInset);
 
         //treibstoffart
         Text treibstoffartText = new Text("Treibstoffart:");
-        grid.add(treibstoffartText, 0, 7);
-        GridPane.setMargin(treibstoffartText, groupInset);
+        VBox.setMargin(treibstoffartText, groupInset);
         Text treibstoffart = new Text();
-        grid.add(treibstoffart, 0, 8);
-        GridPane.setMargin(treibstoffart, inGroupInset);
 
-        detailStage.setScene(new Scene(grid, 500, 700));
+        //Aktueller KM stand
+        Text aktuellerKMText = new Text("Aktueller KM Stand:");
+        VBox.setMargin(aktuellerKMText, groupInset);
+        Text aktuellerKMStand = new Text();
 
+        //Leistung
+        Text leistungText = new Text("Leisgung in PS:");
+        VBox.setMargin(leistungText, groupInset);
+        Text leistung = new Text();
+
+        //Erstzulassung
+        Text erstzulassungText = new Text("Erstzulassung:");
+        VBox.setMargin(erstzulassungText, groupInset);
+        Text erstzulassung = new Text();
+
+        //Farbe
+        Text aussenfarbeText = new Text("Aussenfarbe:");
+        VBox.setMargin(aussenfarbeText, groupInset);
+        Text aussenfarbe = new Text();
+
+        //Leergewicht
+        Text leergewichtText = new Text("Leergewicht in KG:");
+        VBox.setMargin(leergewichtText, groupInset);
+        Text leergewicht = new Text();
+
+        //Alles in UI
+        vBox.getChildren().addAll(marketitel, marke, modelTitel, model,
+                hubraumTitel, hubraum, treibstoffartText, treibstoffart, aktuellerKMText,
+                aktuellerKMStand, leistungText, leistung,
+                erstzulassungText, erstzulassung, aussenfarbeText, aussenfarbe,
+                leergewichtText, leergewicht);
+
+        //Aufbau & Navigation
+        Text aufbau = new Text();
+        CheckBox navigation = new CheckBox();
+        navigation.setDisable(true);
+
+        //Maximale Zuladung
+        Text maxZuladung = new Text();
+
+        //Wenn es ein Auto ist
+        if (fahrzeug instanceof Auto) {
+            Text aufbauText = new Text("Aufbau:");
+            VBox.setMargin(aufbauText, groupInset);
+            Text navigationText = new Text("Navigation:");
+            VBox.setMargin(navigationText, groupInset);
+            vBox.getChildren().addAll(aufbauText, aufbau, navigationText, navigation);
+
+            //Daten
+            aufbau.setText(((Auto) fahrzeug).getAufbau()[((Auto) fahrzeug).getAufbauID()]);
+            System.out.println(((Auto) fahrzeug).getAufbau()[((Auto) fahrzeug).getAufbauID()]);
+            navigation.setSelected(((Auto) fahrzeug).getNavigation());
+        } else {
+            Text maxZuladungText = new Text("Maximale Zuladung in KG:");
+            VBox.setMargin(maxZuladungText, groupInset);
+            vBox.getChildren().addAll(maxZuladungText, maxZuladung);
+
+            //Daten
+            maxZuladung.setText(String.valueOf(((Transporter) fahrzeug).getMaxZuladung()));
+        }
+
+        //Daten
+        marke.setText(fahrzeug.getMarke());
+        model.setText(fahrzeug.getModel());
+        hubraum.setText(String.valueOf(fahrzeug.getHubraum()));
+        treibstoffart.setText(fahrzeug.getTreibstoffart()[fahrzeug.getTreibstoffartID()]);
+        aktuellerKMStand.setText(String.valueOf(fahrzeug.getAktuellerKMStand()));
+        leistung.setText(String.valueOf(fahrzeug.getPs()));
+        erstzulassung.setText(fahrzeug.getErstzulassung().toString());
+        aussenfarbe.setText(fahrzeug.getColor());
+        leergewicht.setText(String.valueOf(fahrzeug.getLeergewicht()));
+
+        bp.setCenter(vBox);
+        BorderPane.setAlignment(titel, Pos.TOP_CENTER);
+        detailStage.setScene(new Scene(bp, 500, 700));
         detailStage.show();
     }
 }
