@@ -27,7 +27,7 @@ public class FahrzeugDetail {
         BorderPane bp = new BorderPane();
         bp.setPadding(new Insets(10, 10, 10, 10));
         VBox vBox = new VBox(10);
-        Insets groupInset = new Insets(0, 10, 0, 0);
+        Insets groupInset = new Insets(10, 0, 0, 0);
 
         //Titel
         Text titel = new Text("Detailansicht");

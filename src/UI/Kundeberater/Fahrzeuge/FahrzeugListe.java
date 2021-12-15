@@ -32,7 +32,7 @@ public class FahrzeugListe {
         TextField suche = new TextField();
         suche.setPromptText("Suchen...");
         sucheUndListe.getChildren().add(suche);
-        VBox.setMargin(suche, new Insets(0, 5, 0, 0));
+        VBox.setMargin(suche, new Insets(5, 0, 0, 0));
         suche.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Benutzer suche gestartet");
