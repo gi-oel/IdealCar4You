@@ -13,7 +13,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,9 +27,22 @@ public class FahrzeugListe {
         PersistencyService ps = new PersistencyService();
         System.out.println("Anzahl Fahrzeuge in liste: " + ps.getFahrzeuge().size());
 
+        //Search bar
+        VBox sucheUndListe = new VBox(10);
+        TextField suche = new TextField();
+        suche.setPromptText("Suchen...");
+        sucheUndListe.getChildren().add(suche);
+        VBox.setMargin(suche, new Insets(0, 5, 0, 0));
+        suche.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                System.out.println("Benutzer suche gestartet");
+            }
+        });
+
         //List
         ListView<String> vehicleListView = new ListView<>();
         ObservableList<String> vehiclesList = FXCollections.observableArrayList();
+        sucheUndListe.getChildren().add(vehicleListView);
 
         //add buttons to right side
         VBox rightBox = new VBox(20);
@@ -67,7 +82,7 @@ public class FahrzeugListe {
 
         //root
         BorderPane rootLayout = new BorderPane();
-        rootLayout.setCenter(vehicleListView);
+        rootLayout.setCenter(sucheUndListe);
         rootLayout.setRight(rightBox);
         return rootLayout;
     }
