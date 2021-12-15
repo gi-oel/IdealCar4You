@@ -6,6 +6,7 @@ import Domain.Fahrzeug.Transporter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -18,6 +19,8 @@ public class FahrzeugDetail {
     public static void detail(Fahrzeug fahrzeug) {
         //Stage
         Stage detailStage = new Stage();
+        detailStage.setMinWidth(300);
+        detailStage.setWidth(300);
         detailStage.setTitle("Detailansicht");
         detailStage.getIcons().add(new Image("logo.png"));
 
@@ -112,6 +115,14 @@ public class FahrzeugDetail {
             maxZuladung.setText(String.valueOf(((Transporter) fahrzeug).getMaxZuladung()));
         }
 
+        //Schliessen
+        Button schliessen = new Button("Schliessen");
+        schliessen.setMaxWidth(Double.MAX_VALUE);
+        vBox.getChildren().add(schliessen);
+        schliessen.setOnAction(event -> {
+            schliessen.getScene().getWindow().hide();
+        });
+
         //Daten
         marke.setText(fahrzeug.getMarke());
         model.setText(fahrzeug.getModel());
@@ -125,7 +136,9 @@ public class FahrzeugDetail {
 
         bp.setCenter(vBox);
         BorderPane.setAlignment(titel, Pos.TOP_CENTER);
-        detailStage.setScene(new Scene(bp, 500, 700));
+        detailStage.setScene(new Scene(bp));
         detailStage.show();
+        detailStage.setHeight(bp.getHeight() + schliessen.getHeight() + 10);
+        detailStage.setMinHeight(bp.getHeight() + schliessen.getHeight() + 10);
     }
 }
