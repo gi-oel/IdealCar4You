@@ -2,6 +2,8 @@ package UI.Kundeberater;
 
 import UI.Fahrzeugparkmanager.Fahrzeugparkmanager;
 import UI.Kundeberater.Fahrzeuge.FahrzeugListe;
+import UI.Kundeberater.Kunden.CreateKunde;
+import UI.Kundeberater.Kunden.ListCustomers;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -56,7 +58,18 @@ public class Kundenberater extends Application {
         suchenFahrzeug.setOnAction(action -> {
             rootLayout.setCenter(FahrzeugListe.list());
         });
-
+        //Kunden auflisten
+        kundenAuflisten.setOnAction(event -> {
+            rootLayout.setCenter(ListCustomers.list());
+        });
+        //Kunden sucher auch dasselbe wie auflisten aber als option um den Benutzer nicht zu vewirren
+        kundenSuchen.setOnAction(action -> {
+            rootLayout.setCenter(ListCustomers.list());
+        });
+        //kunde erstellen
+        kundeErstellen.setOnAction(event -> {
+            rootLayout.setCenter(CreateKunde.create());
+        });
         rootLayout.setCenter(FahrzeugListe.list());
     }
 }
