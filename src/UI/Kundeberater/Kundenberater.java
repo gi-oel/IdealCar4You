@@ -20,10 +20,14 @@ public class Kundenberater extends Application {
         //MenuBar
         MenuBar menuBar = new MenuBar();
         Menu vehicles = new Menu("Fahrzeuge");
+        MenuItem suchenFahrzeug = new MenuItem("Fahrzeug suchen");
+        MenuItem fahrzeugeAuflisten = new MenuItem("Fahrzeuge auflisten");
+        vehicles.getItems().addAll(suchenFahrzeug, fahrzeugeAuflisten);
         Menu customers = new Menu("Kunden");
         MenuItem kundeErstellen = new MenuItem("Kunde erfassen");
         MenuItem kundenAuflisten = new MenuItem("Kunden auflisten");
-        customers.getItems().addAll(kundeErstellen, kundenAuflisten);
+        MenuItem kundenSuchen = new MenuItem("Kunden suchen");
+        customers.getItems().addAll(kundeErstellen, kundenAuflisten, kundenSuchen);
         Menu appliaktion = new Menu("Applikation");
         MenuItem ausloggen = new MenuItem("Ausloggen");
         MenuItem beenden = new MenuItem("Schliessen");
@@ -46,6 +50,10 @@ public class Kundenberater extends Application {
         });
         //Fahrzeuge auflisten
         vehicles.setOnAction(actionEvent -> {
+            rootLayout.setCenter(FahrzeugListe.list());
+        });
+        //Fahrzeuge suchen (dasselbe wie auflisten, aber damit der Benutzer nicht verwirrt ist, wo die suchfunktion ist
+        suchenFahrzeug.setOnAction(action -> {
             rootLayout.setCenter(FahrzeugListe.list());
         });
 
