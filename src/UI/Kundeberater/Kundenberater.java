@@ -1,6 +1,5 @@
 package UI.Kundeberater;
 
-import UI.Fahrzeugparkmanager.Fahrzeugparkmanager;
 import UI.Kundeberater.Fahrzeuge.FahrzeugListe;
 import UI.Kundeberater.Kunden.CreateKunde;
 import UI.Kundeberater.Kunden.ListCustomers;

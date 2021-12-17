@@ -58,10 +58,6 @@ public class Main extends Application {
         //Login Button
         Button loginButton = new Button("Login");
 
-        //Autologin
-        username.setText("amanda");
-        password.setText("besteBeraterin");
-
         //Error Text
         Text error = new Text();
 
