@@ -10,6 +10,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
@@ -18,8 +19,8 @@ import java.text.ParsePosition;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class CreateKunde {
-    public static BorderPane create(MenuItem listCust) {
+public class KundeDetail {
+    public static BorderPane detail(int index, Kunde kunde, Stage theStage) {
         BorderPane root = new BorderPane();
         GridPane grid = new GridPane();
         ColumnConstraints column0 = new ColumnConstraints();
@@ -65,6 +66,7 @@ public class CreateKunde {
         GridPane.setMargin(nameText, groupInset);
         TextField name = new TextField();
         name.setPromptText("Name");
+        name.setText(kunde.getName());
         grid.add(name, 0, 1);
         grid.setMaxWidth(Double.MAX_VALUE);
         GridPane.setMargin(name, innerInset);
@@ -76,6 +78,7 @@ public class CreateKunde {
         TextField vorname = new TextField();
         vorname.setMaxWidth(Double.MAX_VALUE);
         vorname.setPromptText("Vorname");
+        vorname.setText(kunde.getVorname());
         grid.add(vorname, 0, 3);
         GridPane.setMargin(vorname, innerInset);
 
@@ -85,6 +88,7 @@ public class CreateKunde {
         GridPane.setMargin(strasseText, groupInset);
         TextField strasse = new TextField();
         strasse.setMaxWidth(Double.MAX_VALUE);
+        strasse.setText(kunde.getStrasseUndNr().split(";")[0]);
         grid.add(strasse, 0, 5);
         GridPane.setMargin(strasse, innerInset);
         strasse.setPromptText("Strasse");
@@ -95,6 +99,7 @@ public class CreateKunde {
         GridPane.setMargin(nummerText, groupInset);
         TextField hausnummer = new TextField();
         hausnummer.setMaxWidth(Double.MAX_VALUE);
+        hausnummer.setText(kunde.getStrasseUndNr().split(";")[1]);
         grid.add(hausnummer, 0, 7);
         GridPane.setMargin(hausnummer, innerInset);
         hausnummer.setPromptText("Hausnummer");
@@ -107,6 +112,7 @@ public class CreateKunde {
         plz.setValueFactory(spinnerValueFactory);
         plz.getEditor().setTextFormatter(numberFormatter);
         plz.setEditable(true);
+        plz.getValueFactory().setValue(kunde.getPlz());
         grid.add(plz, 0, 9);
         plz.setMaxWidth(Double.MAX_VALUE);
         GridPane.setMargin(plz, innerInset);
@@ -118,6 +124,7 @@ public class CreateKunde {
         TextField wohnort = new TextField();
         wohnort.setPromptText("Wohnort");
         wohnort.setMaxWidth(Double.MAX_VALUE);
+        wohnort.setText(kunde.getWohnort());
         grid.add(wohnort, 2, 1);
         GridPane.setMargin(wohnort, innerInset);
 
@@ -128,6 +135,7 @@ public class CreateKunde {
         TextField telPriv = new TextField();
         telPriv.setMaxWidth(Double.MAX_VALUE);
         telPriv.setPromptText("Telefon privat");
+        telPriv.setText(kunde.getTelefonPriv());
         grid.add(telPriv, 2, 3);
         GridPane.setMargin(telPriv, innerInset);
 
@@ -138,6 +146,7 @@ public class CreateKunde {
         TextField telMob = new TextField();
         telMob.setPromptText("Telefon mobil");
         telMob.setMaxWidth(Double.MAX_VALUE);
+        telMob.setText(kunde.getTelefonMob());
         grid.add(telMob, 2, 5);
         GridPane.setMargin(telMob, innerInset);
 
@@ -148,6 +157,7 @@ public class CreateKunde {
         TextField email = new TextField();
         email.setMaxWidth(Double.MAX_VALUE);
         email.setPromptText("E-Mail");
+        email.setText(kunde.getEmail());
         grid.add(email, 2, 7);
         GridPane.setMargin(email, innerInset);
 
@@ -157,6 +167,7 @@ public class CreateKunde {
         GridPane.setMargin(geburtsText, groupInset);
         DatePicker geburtstag = new DatePicker();
         geburtstag.setMaxWidth(Double.MAX_VALUE);
+        geburtstag.setValue(kunde.getGeburtsdatum());
         grid.add(geburtstag, 2, 9);
         GridPane.setMargin(geburtstag, innerInset);
 
@@ -168,18 +179,17 @@ public class CreateKunde {
 
         //wenn der user auf speichern klickt
         speichern.setOnAction(action -> {
-            Kunde neuerKunde = new Kunde();
-            neuerKunde.setName(name.getText());
-            neuerKunde.setVorname(vorname.getText());
-            neuerKunde.setPlz(plz.getValue());
-            neuerKunde.setWohnort(wohnort.getText());
-            neuerKunde.setEmail(email.getText());
-            neuerKunde.setTelefonMob(telMob.getText());
-            neuerKunde.setTelefonPriv(telPriv.getText());
-            neuerKunde.setGeburtsdatum(geburtstag.getValue());
+            kunde.setName(name.getText());
+            kunde.setVorname(vorname.getText());
+            kunde.setPlz(plz.getValue());
+            kunde.setWohnort(wohnort.getText());
+            kunde.setEmail(email.getText());
+            kunde.setTelefonMob(telMob.getText());
+            kunde.setTelefonPriv(telPriv.getText());
+            kunde.setGeburtsdatum(geburtstag.getValue());
 
             //Validierung des Kunden
-            List<String> errors = neuerKunde.validateCustomer();
+            List<String> errors = kunde.validateCustomer();
             //Validate strasse und nr
             if (strasse.getText().equals("")) {
                 errors.add("Strasse");
@@ -190,11 +200,10 @@ public class CreateKunde {
 
             //Wenn alles erfolgreich validiert wurde, dann speichern sonst warnung
             if (errors.size() == 0) {
-                neuerKunde.setStrasseUndNr(strasse.getText() + ";" + hausnummer.getText());
                 PersistencyService ps = new PersistencyService();
                 try {
-                    ps.addKunde(neuerKunde);
-                    listCust.fire();
+                    ps.setKunde(index, kunde);
+                    theStage.hide();
                 } catch (IOException e) {
                     Alert alarm = new Alert(Alert.AlertType.ERROR);
                     alarm.setHeaderText("Speicherungsfehler");

@@ -78,7 +78,7 @@
   "kunden" : [ {
     "name" : "Petrillo",
     "vorname" : "Gioele",
-    "strasseUndNr" : "Kronenwiese 11",
+    "strasseUndNr" : "Kronenwiese;11",
     "plz" : 9630,
     "wohnort" : "Wattwil",
     "telefonPriv" : "079 719 66 30",
@@ -88,7 +88,7 @@
   }, {
     "name" : "Fäh",
     "vorname" : "Silvan",
-    "strasseUndNr" : null,
+    "strasseUndNr" : "kaltbrunnstrasse;1",
     "plz" : 4657,
     "wohnort" : "Kaltbrunn",
     "telefonPriv" : "",

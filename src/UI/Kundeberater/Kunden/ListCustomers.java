@@ -3,14 +3,15 @@ package UI.Kundeberater.Kunden;
 import Domain.Kunde.Kunde;
 import Infrasturcture.PersistencyService;
 import UI.Kundeberater.Kundenberater;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 
@@ -59,6 +60,26 @@ public class ListCustomers {
             loeschen.setDisable(false);
             bearbeiten.setDisable(false);
             detailAnsicht.setDisable(false);
+        });
+
+        EventHandler<ActionEvent> detailAction = actionEvent -> {
+            int index = customerListView.getSelectionModel().getSelectedIndex();
+            Kunde kunde = ps.getkunde(index);
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(KundeDetail.detail(index, kunde, newStage)));
+            newStage.show();
+        };
+        //Kunde bearbeiten
+        bearbeiten.setOnAction(detailAction);
+        //kunden detail, ist dasselbe, damit der kunde nicht verwirrt ist, ob es keine detail view gibt
+        detailAnsicht.setOnAction(detailAction);
+
+        //Löschen
+        loeschen.setOnAction(actionEvent -> {
+            int index = customerListView.getSelectionModel().getSelectedIndex();
+            Kunde kunde = ps.getkunde(index);
+            Alert really = new Alert(Alert.AlertType.CONFIRMATION);
+
         });
 
         root.setCenter(sucheUndListe);

@@ -72,6 +72,7 @@ public class Kundenberater extends Application {
             kundenberaterStage.setMinHeight(rootLayout.getHeight() + 120);
             kundenberaterStage.setMinWidth(rootLayout.getWidth());
         });
+
         rootLayout.setCenter(FahrzeugListe.list());
     }
 }
