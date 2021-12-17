@@ -60,11 +60,11 @@ public class Kundenberater extends Application {
         });
         //Kunden auflisten
         kundenAuflisten.setOnAction(event -> {
-            rootLayout.setCenter(ListCustomers.list());
+            rootLayout.setCenter(ListCustomers.list(kundenAuflisten));
         });
         //Kunden sucher auch dasselbe wie auflisten aber als option um den Benutzer nicht zu vewirren
         kundenSuchen.setOnAction(action -> {
-            rootLayout.setCenter(ListCustomers.list());
+            rootLayout.setCenter(ListCustomers.list(kundenAuflisten));
         });
         //kunde erstellen
         kundeErstellen.setOnAction(event -> {

@@ -95,5 +95,15 @@
     "telefonMob" : "077 856 29 23",
     "email" : "silvan.faeh@bwz-rappi.ch",
     "geburtsdatumString" : "2002-03-13"
+  }, {
+    "name" : "Daniela",
+    "vorname" : "Lambaré",
+    "strasseUndNr" : "Uznacherstrasse;12",
+    "plz" : 9885,
+    "wohnort" : "Uznach",
+    "telefonPriv" : "",
+    "telefonMob" : "079 675 34 56",
+    "email" : "danielalambare79@gmail.com",
+    "geburtsdatumString" : "2003-01-24"
   } ]
 }
