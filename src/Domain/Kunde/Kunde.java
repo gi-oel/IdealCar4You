@@ -3,6 +3,8 @@ package Domain.Kunde;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Kunde {
     private String name;
@@ -33,6 +35,29 @@ public class Kunde {
         this.geburtsdatum = geburtsdatum;
     }
 
+    public List<String> validateCustomer(){
+        List<String> errors = new ArrayList<>();
+        if (this.name.equals("")){
+            errors.add("Name");
+        }
+        if (this.vorname.equals("")){
+            errors.add("Vorname");
+        }
+        if (this.wohnort.equals("")){
+            errors.add("Wohnort");
+        }
+        if (this.geburtsdatum == null){
+            errors.add("Geburtsdatum");
+        }
+        if (this.email.equals("")){
+            errors.add("E-Mail");
+        }
+        if (this.telefonMob.equals("")){
+            errors.add("Telefon mobil");
+        }
+
+        return errors;
+    }
     public String getName() {
         return name;
     }

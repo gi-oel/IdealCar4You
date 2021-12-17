@@ -68,7 +68,9 @@ public class Kundenberater extends Application {
         });
         //kunde erstellen
         kundeErstellen.setOnAction(event -> {
-            rootLayout.setCenter(CreateKunde.create());
+            rootLayout.setCenter(CreateKunde.create(kundenAuflisten));
+            kundenberaterStage.setMinHeight(rootLayout.getHeight() + 120);
+            kundenberaterStage.setMinWidth(rootLayout.getWidth());
         });
         rootLayout.setCenter(FahrzeugListe.list());
     }

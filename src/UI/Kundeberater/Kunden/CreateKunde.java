@@ -1,5 +1,7 @@
 package UI.Kundeberater.Kunden;
 
+import Domain.Kunde.Kunde;
+import Infrasturcture.PersistencyService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -10,12 +12,14 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class CreateKunde {
-    public static BorderPane create() {
+    public static BorderPane create(MenuItem listCust) {
         BorderPane root = new BorderPane();
         GridPane grid = new GridPane();
         ColumnConstraints column0 = new ColumnConstraints();
@@ -118,7 +122,7 @@ public class CreateKunde {
         GridPane.setMargin(wohnort, innerInset);
 
         //Telefon Privat
-        Text telPrivText = new Text("Telefon privat:");
+        Text telPrivText = new Text("Telefon privat (optional):");
         grid.add(telPrivText, 2, 2);
         GridPane.setMargin(telPrivText, groupInset);
         TextField telPriv = new TextField();
@@ -161,6 +165,48 @@ public class CreateKunde {
         speichern.setMaxWidth(Double.MAX_VALUE);
         grid.add(speichern, 0, 10, 3, 10);
         GridPane.setMargin(speichern, groupInset);
+
+        //wenn der user auf speichern klickt
+        speichern.setOnAction(action -> {
+            Kunde neuerKunde = new Kunde();
+            neuerKunde.setName(name.getText());
+            neuerKunde.setVorname(vorname.getText());
+            neuerKunde.setPlz(plz.getValue());
+            neuerKunde.setWohnort(wohnort.getText());
+            neuerKunde.setEmail(email.getText());
+            neuerKunde.setTelefonMob(telMob.getText());
+            neuerKunde.setTelefonPriv(telPriv.getText());
+            neuerKunde.setGeburtsdatum(geburtstag.getValue());
+
+            //Validierung des Kunden
+            List<String> errors = neuerKunde.validateCustomer();
+            //Validate strasse und nr
+            if (strasse.getText().equals("")) {
+                errors.add("Strasse");
+            }
+            if (hausnummer.getText().equals("")) {
+                errors.add("Hausnummer");
+            }
+
+            //Wenn alles erfolgreich validiert wurde, dann speichern sonst warnung
+            if (errors.size() == 0) {
+                PersistencyService ps = new PersistencyService();
+                try {
+                    ps.addKunde(neuerKunde);
+                    listCust.fire();
+                } catch (IOException e) {
+                    Alert alarm = new Alert(Alert.AlertType.ERROR);
+                    alarm.setHeaderText("Speicherungsfehler");
+                    alarm.setContentText("Es ist ein Fehler aufgetreten und der Kunde konnte nicht gespeichert werden!");
+                    alarm.showAndWait();
+                }
+            } else {
+                Alert warnung = new Alert(Alert.AlertType.WARNING);
+                warnung.setHeaderText("Angaben beachten");
+                warnung.setContentText("Bitte beachten Sie diese Felder: " + errors + "! Achten Sie darauf, dass die Felder nicht leer sind.");
+                warnung.showAndWait();
+            }
+        });
 
         root.setCenter(grid);
         return root;
