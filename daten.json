@@ -105,5 +105,15 @@
     "telefonMob" : "079 675 34 56",
     "email" : "danielalambare79@gmail.com",
     "geburtsdatumString" : "2003-01-24"
+  }, {
+    "name" : "Rodino",
+    "vorname" : "Vanessa",
+    "strasseUndNr" : "Lichtensteigstrasse;12",
+    "plz" : 9631,
+    "wohnort" : "Lichtensteig",
+    "telefonPriv" : "",
+    "telefonMob" : "079 765 34 32",
+    "email" : "vanessarodino@gmail.com",
+    "geburtsdatumString" : "2004-12-19"
   } ]
 }
