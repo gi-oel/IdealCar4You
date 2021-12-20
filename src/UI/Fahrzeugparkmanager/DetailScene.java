@@ -206,8 +206,8 @@ public class DetailScene {
             grid.add(maximalezuladungText, 2, 9);
             GridPane.setMargin(maximalezuladungText, groupSeparator);
             maximalezuladung.setValueFactory(spinnerValueFactory5);
-            maximalezuladung.getValueFactory().setValue(((Transporter) fahrzeug).getMaxZuladung());
             maximalezuladung.getEditor().setTextFormatter(numberFormatter5);
+            maximalezuladung.getValueFactory().setValue(((Transporter) fahrzeug).getMaxZuladung());
             maximalezuladung.setEditable(true);
             maximalezuladung.setMaxWidth(Double.MAX_VALUE);
             grid.add(maximalezuladung, 2, 10);
